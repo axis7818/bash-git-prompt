@@ -574,7 +574,7 @@ function updatePrompt() {
 # Helper function that returns virtual env information to be set in prompt
 # Honors virtualenvs own setting VIRTUAL_ENV_DISABLE_PROMPT
 function gp_add_virtualenv_to_prompt {
-  local ACCUMULATED_VENV_PROMPT=""
+  local ACCUMULATED_VENV_PROMPT="${GIT_PROMPT_VIRTUALENV_PREFIX}"
   local VENV=""
   if [[ -n "$VIRTUAL_ENV" && -z "${VIRTUAL_ENV_DISABLE_PROMPT-}" ]]; then
     VENV=$(basename "${VIRTUAL_ENV}")
@@ -584,6 +584,7 @@ function gp_add_virtualenv_to_prompt {
     VENV=$(basename "${CONDA_DEFAULT_ENV}")
     ACCUMULATED_VENV_PROMPT="${ACCUMULATED_VENV_PROMPT}${GIT_PROMPT_VIRTUALENV//_VIRTUALENV_/${VENV}}"
   fi
+  ACCUMULATED_VENV_PROMPT="${ACCUMULATED_VENV_PROMPT}${GIT_PROMPT_VIRTUALENV_SUFFIX}"
   echo "$ACCUMULATED_VENV_PROMPT"
 }
 
